@@ -1,5 +1,5 @@
 import { gql } from "graphql-request";
-import stripeClient from "../../utils/stripe-client";
+import stripeServerClient from "../../utils/stripe-server-client";
 import graphCmsClient from "../../utils/graph-cms-client";
 
 async function createCheckoutSession(req) {
@@ -18,7 +18,7 @@ async function createCheckoutSession(req) {
         slug,
       },
     );
-    const session = await stripeClient.checkout.sessions.create({
+    const session = await stripeServerClient.checkout.sessions.create({
       success_url: "http://localhost:3000/?id={CHECKOUT_SESSION_ID}",
       cancel_url: `http://localhost:3000/products/${slug}`,
       mode: "payment",
