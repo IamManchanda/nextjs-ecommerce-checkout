@@ -4,27 +4,6 @@ import { Fragment } from "react";
 import { gql } from "graphql-request";
 import graphCmsClient from "../utils/graph-cms-client";
 
-export async function getStaticProps() {
-  const { products } = await graphCmsClient.request(
-    gql`
-      query GetProducts {
-        products {
-          id
-          name
-          slug
-        }
-      }
-    `,
-  );
-
-  return {
-    props: {
-      products,
-    },
-    revalidate: 3,
-  };
-}
-
 function PageIndex({ products }) {
   return (
     <Fragment>
@@ -45,5 +24,26 @@ function PageIndex({ products }) {
     </Fragment>
   );
 }
+
+export const getStaticProps = async () => {
+  const { products } = await graphCmsClient.request(
+    gql`
+      query GetProducts {
+        products {
+          id
+          name
+          slug
+        }
+      }
+    `,
+  );
+
+  return {
+    props: {
+      products,
+    },
+    revalidate: 3,
+  };
+};
 
 export default PageIndex;
