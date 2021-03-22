@@ -19,8 +19,9 @@ async function createCheckoutSession(req) {
       },
     );
     const session = await stripeServerClient.checkout.sessions.create({
-      success_url: "http://localhost:3000/?id={CHECKOUT_SESSION_ID}",
-      cancel_url: `http://localhost:3000/products/${slug}`,
+      success_url:
+        "http://localhost:3000/checkout/success/?id={CHECKOUT_SESSION_ID}",
+      cancel_url: `http://localhost:3000/checkout/failure/?slug=${slug}`,
       mode: "payment",
       payment_method_types: ["card"],
       line_items: [
