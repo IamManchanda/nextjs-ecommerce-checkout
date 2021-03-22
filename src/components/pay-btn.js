@@ -1,7 +1,9 @@
+import stripeWebClient from "../utils/stripe-web-client";
+
 function PayBtn({ slug }) {
   async function handleClick(event) {
     event.preventDefault();
-    const session = await fetch("/api/create-checkout-session", {
+    const sessionResponse = await fetch("/api/checkout-session", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -9,6 +11,11 @@ function PayBtn({ slug }) {
       body: JSON.stringify({
         slug,
       }),
+    });
+    const session = await sessionResponse.json();
+    const stripe = await stripeWebClient;
+    await stripe.redirectToCheckout({
+      sessionId: session.id,
     });
   }
 

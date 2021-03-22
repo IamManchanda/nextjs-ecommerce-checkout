@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import Image from "next/image";
 import { gql } from "graphql-request";
 import graphCmsClient from "../../utils/graph-cms-client";
+import PayBtn from "../../components/pay-btn";
 
 function ProductPageBySlug({ product, slug }) {
   const { name, price, description, images } = product;
@@ -11,9 +12,14 @@ function ProductPageBySlug({ product, slug }) {
         {name} - €{price}
       </h1>
       <p>{description}</p>
-      {images.map(({ id, url, width, height }) => (
-        <Image key={id} src={url} width={width} height={height} />
-      ))}
+      <div>
+        <PayBtn slug={slug} />
+      </div>
+      <div style={{ marginTop: "1rem" }}>
+        {images.map(({ id, url, width, height }) => (
+          <Image key={id} src={url} width={width} height={height} />
+        ))}
+      </div>
     </Fragment>
   );
 }
