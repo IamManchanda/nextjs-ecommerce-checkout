@@ -9,7 +9,7 @@ function ProductPageBySlug({ product, slug }) {
   return (
     <Fragment>
       <h1>
-        {name} - €{price}
+        {name} - €{(price / 100).toFixed(2)}
       </h1>
       <p>{description}</p>
       <div>
