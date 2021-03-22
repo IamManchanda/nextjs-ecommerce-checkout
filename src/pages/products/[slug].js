@@ -29,9 +29,7 @@ export async function getStaticProps({ params: { slug } = {} }) {
     gql`
       query GetProduct($slug: String!) {
         product(where: { slug: $slug }) {
-          id
           name
-          slug
           description
           price
           images {
@@ -57,11 +55,13 @@ export async function getStaticProps({ params: { slug } = {} }) {
 }
 
 function ProductPageBySlug({ product }) {
-  const { id, name, slug, description, price, images } = product;
-  console.log({ id, name, slug, description, price, images });
+  const { name, price, description, images } = product;
   return (
     <Fragment>
-      <h1>{name}</h1>
+      <h1>
+        {name} - ${price}
+      </h1>
+      <p>{description}</p>
       {images.map(({ id, url, width, height }) => (
         <Image key={id} src={url} width={width} height={height} />
       ))}
