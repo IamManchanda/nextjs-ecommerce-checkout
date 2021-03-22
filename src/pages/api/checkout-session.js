@@ -10,10 +10,7 @@ async function checkoutSession(req, res) {
     case "POST":
       try {
         const session = await createCheckoutSession(req);
-        res.status(201).json({
-          message: "Created",
-          data: session,
-        });
+        res.status(201).json(session);
       } catch (error) {
         res.status(500).json({
           message: "Something went wrong!",
