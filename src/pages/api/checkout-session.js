@@ -19,6 +19,7 @@ async function checkoutSession(req, res) {
           message: "Something went wrong!",
         });
       }
+      break;
     default:
       res.status(405).end(); // Method Not Allowed
       break;
