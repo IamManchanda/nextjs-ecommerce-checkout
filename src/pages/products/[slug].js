@@ -49,17 +49,35 @@ export async function getStaticProps({ params: { slug } = {} }) {
   return {
     props: {
       product,
+      slug,
     },
     revalidate: 3,
   };
 }
 
-function ProductPageBySlug({ product }) {
+function PayBtn({ slug }) {
+  async function handleClick(event) {
+    event.preventDefault();
+    const session = await fetch("/api/create-checkout-session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        slug,
+      }),
+    });
+  }
+
+  return <button onClick={handleClick}>Pay</button>;
+}
+
+function ProductPageBySlug({ product, slug }) {
   const { name, price, description, images } = product;
   return (
     <Fragment>
       <h1>
-        {name} - ${price}
+        {name} - €{price}
       </h1>
       <p>{description}</p>
       {images.map(({ id, url, width, height }) => (
