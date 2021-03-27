@@ -31,6 +31,9 @@ async function createCheckoutSession(req) {
             currency: "EUR",
             product_data: {
               name: product.name,
+              metadata: {
+                productSlug: slug,
+              },
             },
           },
           quantity: 1,
